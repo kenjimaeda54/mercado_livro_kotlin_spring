@@ -7,6 +7,9 @@ import com.mercadolivro.extension.book.toModel
 import com.mercadolivro.extension.book.toResponse
 import com.mercadolivro.service.book.BookService
 import com.mercadolivro.service.customer.CustomerService
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -30,15 +33,19 @@ class BookController(
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun createBook(@RequestBody book: PostBookRequest) {
-       val customer = customerService.getOnlyCustomerById(book.customerId)
-       bookService.createBook(book.toModel(customer))
+        val customer = customerService.getOnlyCustomerById(book.customerId)
+        bookService.createBook(book.toModel(customer))
     }
 
     @GetMapping
-    fun findAllBook(): List<BookResponse> = bookService.findAllBook().map { it.toResponse() }
+    fun findAllBook(@PageableDefault(size = 10, page = 0) pageable: Pageable): Page<BookResponse> =
+        bookService.findAllBook(
+           pageable
+        ).map { it.toResponse() }
 
     @GetMapping("/actives")
-    fun findBookActives(): List<BookResponse> = bookService.findActives().map { it.toResponse() }
+    fun findBookActives(@PageableDefault(size = 10, page = 0) pageable: Pageable): Page
+    <BookResponse> = bookService.findActives(pageable).map { it.toResponse() }
 
     @GetMapping("/{id}")
     fun findById(@PathVariable id: Int): BookResponse = bookService.findById(id).toResponse()
@@ -49,7 +56,7 @@ class BookController(
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun updateBook(@RequestBody book: PutBookRequest, @PathVariable id: Int ) {
+    fun updateBook(@RequestBody book: PutBookRequest, @PathVariable id: Int) {
         val bookSaved = bookService.findById(id) //precisa no mapper passar id para atualiizar
         //nao existe  o metodo update no jpa
         bookService.updateBook(book.toModel(bookSaved))

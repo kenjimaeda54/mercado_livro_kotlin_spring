@@ -8,7 +8,8 @@ spring:
     url: jdbc:mysql://localhost:3306/mercadolivro?createDatabaseIfNotExist=true
     username: root
     password: abacate54
-
+  jackson:
+    default-property-inclusion: non_null
 
 #  recomendado
 #  spring.jpa.hibernate.ddl-auto=update
@@ -17,3 +18,5 @@ spring:
 #    spring.datasource.password=secret
 #    spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 #  spring.jpa.show-sql: true
+
+# default-property-inclusion e para sumir os retornos do tipo null

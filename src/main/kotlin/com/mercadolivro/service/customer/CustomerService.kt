@@ -1,6 +1,7 @@
 package com.mercadolivro.service.customer
 
 import com.mercadolivro.enums.CustomerStatus
+import com.mercadolivro.exception.NotFoundException
 import com.mercadolivro.resource.customer.CustomerModel
 import com.mercadolivro.respository.customer.CustomerRepository
 import com.mercadolivro.service.book.BookService
@@ -27,16 +28,18 @@ class CustomerService(
     //camada service nao pode receber as request por isso
     //criei umaa camada extension paara mapear esse model
     fun createUser(customer: CustomerModel) {
-       customerRepository.save(customer)
+        customerRepository.save(customer)
     }
 
     fun getOnlyCustomerById(id: Int): CustomerModel {
-        return customerRepository.findById(id).orElseThrow()
+        return customerRepository.findById(id).orElseThrow {
+            NotFoundException(message = "Customer {$id} not exit", errorCode = "ML-001")
+        }
     }
 
     fun updateUser(customer: CustomerModel) {
         customer.id?.let {
-            if (!customerRepository.existsById(customer.id)){
+            if (!customerRepository.existsById(customer.id)) {
                 throw Exception()
             }
             customerRepository.save(customer)
@@ -45,11 +48,11 @@ class CustomerService(
     }
 
     fun deleteUser(id: Int) {
-        if (!customerRepository.existsById(id)){
+        if (!customerRepository.existsById(id)) {
             throw Exception()
         }
-         val customer = getOnlyCustomerById(id)
-         bookService.deleteBooksByCustomer(customer)
+        val customer = getOnlyCustomerById(id)
+        bookService.deleteBooksByCustomer(customer)
 
         //não iremo deletar propriaamente dito do banco para não perder historico inclusive e boa pratica por isso customer vai ter um status
         customer.status = CustomerStatus.INATIVO
