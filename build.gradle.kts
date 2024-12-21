@@ -34,6 +34,8 @@ dependencies {
 	implementation("org.flywaydb:flyway-core:11.1.0")
 	implementation("org.flywaydb:flyway-mysql:11.1.0")
 
+	//validator
+	implementation("org.springframework.boot:spring-boot-starter-validation")
 
     //vem com o inialiazer
 	implementation("org.springframework.boot:spring-boot-starter-web")

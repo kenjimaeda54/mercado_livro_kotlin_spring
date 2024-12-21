@@ -1,8 +1,11 @@
 package com.mercadolivro.exception
 
 import com.mercadolivro.controller.response.error.ErrorResponse
+import com.mercadolivro.controller.response.error.FieldErrors
+import com.mercadolivro.enums.Errors
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.context.request.WebRequest
@@ -34,5 +37,25 @@ class ControllerAdvice {
         )
         return ResponseEntity(error, HttpStatus.BAD_REQUEST)
     }
+
+    @ExceptionHandler(MethodArgumentNotValidException::class)
+    fun handleExceptionGenericBadRequest(
+        exception: MethodArgumentNotValidException,
+        request: WebRequest
+    ): ResponseEntity<ErrorResponse> {
+        val error = ErrorResponse(
+            httpStatusCode = HttpStatus.UNPROCESSABLE_ENTITY.value(),
+            errorCode = Errors.ML001.code,
+            message = Errors.ML001.message,
+            exception.bindingResult.fieldErrors.map {
+                FieldErrors(
+                    message = it.defaultMessage ?: "",
+                    field = it.field
+                )
+            }
+        )
+        return ResponseEntity(error,HttpStatus.UNPROCESSABLE_ENTITY)
+    }
+
 
 }

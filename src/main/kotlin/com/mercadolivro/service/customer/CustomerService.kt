@@ -62,4 +62,9 @@ class CustomerService(
         //se eu querer deletar algo do banco
         //customerRepository.deleteById(id)
     }
+
+    fun isExistsEmail(value: String): Boolean {
+        //se ele retornar true preciso que retorne false para o validador e assim dar erro
+       return !customerRepository.existsByEmail(value)
+    }
 }

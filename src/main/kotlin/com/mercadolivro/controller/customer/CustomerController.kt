@@ -6,6 +6,7 @@ import com.mercadolivro.controller.response.customer.CustomerResponse
 import com.mercadolivro.extension.customer.toModel
 import com.mercadolivro.extension.customer.toResponse
 import com.mercadolivro.service.customer.CustomerService
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
@@ -24,7 +25,7 @@ class CustomerController(
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun createUser(@RequestBody customer: PostCustomerRequest) = customerService.createUser(customer.toModel())
+    fun createUser(@RequestBody @Valid customer: PostCustomerRequest) = customerService.createUser(customer.toModel())
 
     //precisa ser mesmo nome do pathVariable ou seja id com id
     @GetMapping("/{id}")
