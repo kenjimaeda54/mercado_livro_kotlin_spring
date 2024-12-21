@@ -1,6 +1,7 @@
 package com.mercadolivro.service.book
 
 import com.mercadolivro.enums.BooksStatus
+import com.mercadolivro.enums.Errors
 import com.mercadolivro.exception.NotFoundException
 import com.mercadolivro.resource.book.BookModel
 import com.mercadolivro.resource.customer.CustomerModel
@@ -23,7 +24,7 @@ class BookService(
     // Error code pode ser um erro interno
     // assiim fica facil identificar o motivo do erro
     fun findById(id: Int): BookModel = bookRepository.findById(id)
-        .orElseThrow { NotFoundException(message = "Book {$id} not exit", errorCode = "ML-001") }
+        .orElseThrow { NotFoundException(message = Errors.ML101.message.format(id), errorCode = Errors.ML101.code) }
 
     fun deleteBook(id: Int) {
         val book = findById(id)

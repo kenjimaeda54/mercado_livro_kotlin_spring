@@ -1,6 +1,8 @@
 package com.mercadolivro.resource.book
 
 import com.mercadolivro.enums.BooksStatus
+import com.mercadolivro.enums.Errors
+import com.mercadolivro.exception.BadRequestException
 import com.mercadolivro.resource.customer.CustomerModel
 import jakarta.persistence.*
 import java.math.BigDecimal
@@ -36,7 +38,7 @@ data class BookModel(
         set(value) {
             //se o valor antigo do book ja e deletado ou cancelado não posso alterar
             if (field == BooksStatus.DELETADO || field == BooksStatus.CANCELADO)
-                throw Exception("Não é permitido alerar book com o status $field")
+                throw BadRequestException(code = Errors.ML102.code, message = Errors.ML102.message.format(field))
             field = value
         }
 
