@@ -6,7 +6,6 @@ plugins {
 
 	//jpa
 	kotlin("plugin.jpa") version "1.4.21"
-
 }
 
 group = "com.mercadolivro"
@@ -37,7 +36,10 @@ dependencies {
 	//validator
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 
-    //vem com o inialiazer
+	//docs
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0")
+
+	//vem com o inialiazer
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")

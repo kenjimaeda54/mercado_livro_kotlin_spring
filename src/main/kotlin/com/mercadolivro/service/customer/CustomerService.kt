@@ -67,4 +67,8 @@ class CustomerService(
         //se ele retornar true preciso que retorne false para o validador e assim dar erro
        return !customerRepository.existsByEmail(value)
     }
+
+    fun existsCustomerId(value: Int): Boolean {
+       return customerRepository.existsById(value)
+    }
 }

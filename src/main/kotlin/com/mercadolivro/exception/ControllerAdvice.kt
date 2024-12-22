@@ -5,6 +5,7 @@ import com.mercadolivro.controller.response.error.FieldErrors
 import com.mercadolivro.enums.Errors
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -57,5 +58,17 @@ class ControllerAdvice {
         return ResponseEntity(error,HttpStatus.UNPROCESSABLE_ENTITY)
     }
 
-
+    @ExceptionHandler(HttpMessageNotReadableException::class)
+    fun handleExceptionNotReadableException(
+        exception: HttpMessageNotReadableException,
+        request: WebRequest
+    ): ResponseEntity<ErrorResponse> {
+        val error = ErrorResponse(
+            httpStatusCode = HttpStatus.UNPROCESSABLE_ENTITY.value(),
+            errorCode = Errors.ML002.code,
+            message = Errors.ML002.message,
+            null
+        )
+        return ResponseEntity(error,HttpStatus.UNPROCESSABLE_ENTITY)
+    }
 }
