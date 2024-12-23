@@ -17,5 +17,6 @@ fun PutBookRequest.toModel(previous: BookModel) = BookModel(
     id = previous.id,
     name = this.name ?: previous.name,
     price = this.price ?: previous.price,
-    customer = previous.customer
+    customer = previous.customer,
+    status = previous.status
 )

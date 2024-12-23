@@ -42,4 +42,9 @@ class BookService(
         }
         bookRepository.saveAll(books)
     }
+
+    fun findAllBooksId(booksId: Set<Int>): MutableList<BookModel> = bookRepository.findAllById(booksId)
+    
+    fun booksPurchase(books: MutableList<BookModel>): MutableList<BookModel> = bookRepository.saveAll(books)
+
 }
