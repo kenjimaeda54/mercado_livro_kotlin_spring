@@ -9,12 +9,14 @@ import com.mercadolivro.resource.customer.CustomerModel
 fun PostCustomerRequest.toModel() = CustomerModel(
     name = this.name,
     email = this.email,
-    status = CustomerStatus.ATIVO
+    status = CustomerStatus.ATIVO,
+    password = this.password,
 )
 
 fun PutCustomerRequest.toModel(previous: CustomerModel) = CustomerModel(
     id = previous.id,
     name = this.name ?: previous.name,
     email = this.email ?: previous.email,
-    status = previous.status
+    status = previous.status,
+    password = previous.password
 )
