@@ -2,6 +2,7 @@ package com.mercadolivro.service.customer
 
 import com.mercadolivro.enums.CustomerStatus
 import com.mercadolivro.enums.Errors
+import com.mercadolivro.enums.ProfileRoles
 import com.mercadolivro.exception.NotFoundException
 import com.mercadolivro.resource.customer.CustomerModel
 import com.mercadolivro.respository.customer.CustomerRepository
@@ -29,7 +30,10 @@ class CustomerService(
     //camada service nao pode receber as request por isso
     //criei umaa camada extension paara mapear esse model
     fun createUser(customer: CustomerModel) {
-        customerRepository.save(customer)
+        val newCustomer = customer.copy(
+            role = setOf(ProfileRoles.CUSTOMER)
+        )
+        customerRepository.save(newCustomer)
     }
 
     fun getOnlyCustomerById(id: Int): CustomerModel {
