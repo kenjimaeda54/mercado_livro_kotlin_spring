@@ -9,6 +9,7 @@ spring:
   jackson:
     default-property-inclusion: non_null
 
+
 #  recomendado
 #  spring.jpa.hibernate.ddl-auto=update
 #    spring.datasource.url=jdbc:mysql://localhost:3306/mydatabase

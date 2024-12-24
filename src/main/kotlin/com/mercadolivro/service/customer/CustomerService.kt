@@ -7,12 +7,14 @@ import com.mercadolivro.exception.NotFoundException
 import com.mercadolivro.resource.customer.CustomerModel
 import com.mercadolivro.respository.customer.CustomerRepository
 import com.mercadolivro.service.book.BookService
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
 class CustomerService(
     val customerRepository: CustomerRepository, //injeção dependencia
-    val bookService: BookService
+    val bookService: BookService,
+    val bcrypt: BCryptPasswordEncoder
 ) {
     //jpa ja tem varios metodos disponiveis para acessar abaixo todos os metodos diponiveis
     //no jpaa
@@ -31,7 +33,8 @@ class CustomerService(
     //criei umaa camada extension paara mapear esse model
     fun createUser(customer: CustomerModel) {
         val newCustomer = customer.copy(
-            role = setOf(ProfileRoles.CUSTOMER)
+            role = setOf(ProfileRoles.CUSTOMER),
+            password = bcrypt.encode(customer.password)
         )
         customerRepository.save(newCustomer)
     }
@@ -75,4 +78,5 @@ class CustomerService(
     fun existsCustomerId(value: Int): Boolean {
        return customerRepository.existsById(value)
     }
+
 }
