@@ -2,6 +2,8 @@ package com.mercadolivro.config
 
 import com.mercadolivro.respository.customer.CustomerRepository
 import com.mercadolivro.security.AuthenticationFilter
+import com.mercadolivro.security.AuthorizationFilter
+import com.mercadolivro.security.JwtUtil
 import com.mercadolivro.service.customer.UserCustomDetailsService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -21,7 +23,8 @@ import org.springframework.security.web.SecurityFilterChain
 class Security(
     private val authenticationConfiguration: AuthenticationConfiguration,
     private val customerRepository: CustomerRepository,
-    private val userCustomDetailsService: UserCustomDetailsService
+    private val userCustomDetailsService: UserCustomDetailsService,
+    private val jwtUtil: JwtUtil
 ) {
 
     private val lisMatchers = arrayOf(
@@ -32,8 +35,8 @@ class Security(
     fun bcryptEncoder() = BCryptPasswordEncoder()
 
     @Bean
-    fun  daoAuthenticationProvider(): DaoAuthenticationProvider {
-       val authenticationProvider = DaoAuthenticationProvider()
+    fun daoAuthenticationProvider(): DaoAuthenticationProvider {
+        val authenticationProvider = DaoAuthenticationProvider()
         authenticationProvider.setPasswordEncoder(bcryptEncoder())
         authenticationProvider.setUserDetailsService(userCustomDetailsService)
         return authenticationProvider
@@ -46,14 +49,28 @@ class Security(
         }.cors { cors ->
             cors.disable()
         }.sessionManagement { session ->
-            //nunca vai ter um auteticado vivo na aplicaçao toda
+            //nunca vai ter um authenticate vivo na aplicaçao toda
             //precisa sempre autenticar para ter acesso
             session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        }.authorizeHttpRequests { autorize ->
-            //se nã pasar o permitAll preciso criar regras
+        }.authorizeHttpRequests { authorize ->
+            //se nã passar o permitAll preciso criar regras
             //dai o admin poderia ter acesso a outras coisas
-            autorize.requestMatchers(HttpMethod.POST, *lisMatchers).permitAll()
-        }.addFilterBefore(customAuthenticationFilter(authenticationManager = authenticationManager(authenticationConfiguration)),AuthenticationFilter::class.java )
+            authorize.requestMatchers(HttpMethod.POST, *lisMatchers).permitAll()
+
+            //qualifier outra rota precisa ser autenticado
+            //sem isso aqui não ira adiantar criar o filter, pois ira continuar a dar falha
+            authorize.anyRequest().authenticated()
+        }.addFilter(
+            customAuthenticationFilter(
+                authenticationManager = authenticationManager(authenticationConfiguration)
+            )
+        ).addFilter(
+            customAuthorizationFilter(
+                authenticationManager = authenticationManager(
+                    authenticationConfiguration
+                )
+            )
+        )
             .build()
     }
 
@@ -63,6 +80,10 @@ class Security(
     }
 
     @Bean
-    fun customAuthenticationFilter(authenticationManager: AuthenticationManager) = AuthenticationFilter(authenticationManager,customerRepository)
+    fun customAuthenticationFilter(authenticationManager: AuthenticationManager) =
+        AuthenticationFilter(authenticationManager, customerRepository, jwtUtil)
 
+    @Bean
+    fun customAuthorizationFilter(authenticationManager: AuthenticationManager) =
+        AuthorizationFilter(authenticationManager, jwtUtil, userCustomDetailsService)
 }

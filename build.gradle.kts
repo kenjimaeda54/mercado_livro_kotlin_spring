@@ -42,6 +42,8 @@ dependencies {
 	//securty
 	implementation("org.springframework.boot:spring-boot-starter-security")
 
+	//jwt
+	implementation("io.jsonwebtoken:jjwt:0.12.6")
 
 	//vem com o inialiazer
 	implementation("org.springframework.boot:spring-boot-starter-web")

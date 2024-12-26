@@ -9,6 +9,9 @@ spring:
   jackson:
     default-property-inclusion: non_null
 
+jwt:
+  secret:  abf9f11d-94c2-4b93-a8c4-870b883a666d
+  expiration: 999999
 
 #  recomendado
 #  spring.jpa.hibernate.ddl-auto=update
