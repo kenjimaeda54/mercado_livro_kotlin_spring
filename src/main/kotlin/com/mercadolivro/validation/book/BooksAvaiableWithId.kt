@@ -1,6 +1,6 @@
 package com.mercadolivro.validation.book
 
-import com.mercadolivro.respository.book.BookRepository
+import com.mercadolivro.annotation.book.ValidateExitBook
 import com.mercadolivro.service.book.BookService
 import jakarta.validation.ConstraintValidator
 import jakarta.validation.ConstraintValidatorContext

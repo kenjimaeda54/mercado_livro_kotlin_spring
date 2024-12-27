@@ -2,7 +2,7 @@ package com.mercadolivro.controller.request.book
 
 import com.fasterxml.jackson.annotation.JsonAlias
 import com.mercadolivro.controller.request.customer.ERROR_NAME
-import com.mercadolivro.validation.customer.ValidateCustomerId
+import com.mercadolivro.annotation.customer.ValidateCustomerId
 import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.NotNull
 import java.math.BigDecimal

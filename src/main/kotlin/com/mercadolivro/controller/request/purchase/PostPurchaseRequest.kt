@@ -1,9 +1,9 @@
 package com.mercadolivro.controller.request.purchase
 
 import com.fasterxml.jackson.annotation.JsonAlias
-import com.mercadolivro.validation.book.ValidateExitBook
-import com.mercadolivro.validation.book.ValidateStatusBook
-import com.mercadolivro.validation.customer.ValidateCustomerId
+import com.mercadolivro.annotation.book.ValidateExitBook
+import com.mercadolivro.annotation.book.ValidateStatusBook
+import com.mercadolivro.annotation.customer.ValidateCustomerId
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Positive
 

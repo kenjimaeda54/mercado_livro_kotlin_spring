@@ -1,5 +1,6 @@
-package com.mercadolivro.validation.customer
+package com.mercadolivro.annotation.customer
 
+import com.mercadolivro.validation.customer.CustomerValidateId
 import jakarta.validation.Constraint
 import jakarta.validation.Payload
 import kotlin.reflect.KClass

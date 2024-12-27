@@ -34,7 +34,8 @@ class AuthorizationFilter(
         }
         val subject = jwtUtil.getId(token)
         val customer = userCustomDetailsService.loadUserByUsername(subject)
-        return UsernamePasswordAuthenticationToken(subject,null,customer.authorities)
+            //esse token tambem interfere na validdaçao do preautorizze
+        return UsernamePasswordAuthenticationToken(customer,null,customer.authorities)
     }
 
 

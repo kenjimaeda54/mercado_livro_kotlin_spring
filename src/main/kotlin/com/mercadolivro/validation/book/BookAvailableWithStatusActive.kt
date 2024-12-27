@@ -1,5 +1,6 @@
 package com.mercadolivro.validation.book
 
+import com.mercadolivro.annotation.book.ValidateStatusBook
 import com.mercadolivro.enums.BooksStatus
 import com.mercadolivro.service.book.BookService
 import jakarta.validation.ConstraintValidator

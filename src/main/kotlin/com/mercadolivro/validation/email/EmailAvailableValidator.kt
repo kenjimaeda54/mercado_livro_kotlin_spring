@@ -1,5 +1,6 @@
 package com.mercadolivro.validation.email
 
+import com.mercadolivro.annotation.email.EmailAvailable
 import com.mercadolivro.service.customer.CustomerService
 import jakarta.validation.ConstraintValidator
 import jakarta.validation.ConstraintValidatorContext

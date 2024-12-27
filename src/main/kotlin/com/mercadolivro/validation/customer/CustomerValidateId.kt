@@ -1,6 +1,6 @@
 package com.mercadolivro.validation.customer
 
-import com.mercadolivro.service.book.BookService
+import com.mercadolivro.annotation.customer.ValidateCustomerId
 import com.mercadolivro.service.customer.CustomerService
 import jakarta.validation.ConstraintValidator
 import jakarta.validation.ConstraintValidatorContext

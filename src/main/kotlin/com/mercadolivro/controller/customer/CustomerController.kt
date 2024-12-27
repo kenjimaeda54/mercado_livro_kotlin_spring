@@ -1,5 +1,6 @@
 package com.mercadolivro.controller.customer
 
+import com.mercadolivro.annotation.customer.UserCanOnlyAccessYourResource
 import com.mercadolivro.controller.request.customer.PostCustomerRequest
 import com.mercadolivro.controller.request.customer.PutCustomerRequest
 import com.mercadolivro.controller.response.customer.CustomerResponse
@@ -29,6 +30,7 @@ class CustomerController(
 
     //precisa ser mesmo nome do pathVariable ou seja id com id
     @GetMapping("/{id}")
+    @UserCanOnlyAccessYourResource
     fun getOnlyUser(@PathVariable id: Int): CustomerResponse = customerService.getOnlyCustomerById(id).toResponse()
 
     //idela e a camada de request nao interferir direto no model

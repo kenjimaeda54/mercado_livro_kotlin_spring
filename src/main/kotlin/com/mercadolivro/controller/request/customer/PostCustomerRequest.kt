@@ -1,6 +1,6 @@
 package com.mercadolivro.controller.request.customer
 
-import com.mercadolivro.validation.email.EmailAvailable
+import com.mercadolivro.annotation.email.EmailAvailable
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotEmpty
 

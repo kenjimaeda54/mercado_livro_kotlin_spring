@@ -1,5 +1,6 @@
-package com.mercadolivro.validation.email
+package com.mercadolivro.annotation.email
 
+import com.mercadolivro.validation.email.EmailAvailableValidator
 import jakarta.validation.Constraint
 import jakarta.validation.Payload
 import kotlin.reflect.KClass
