@@ -1,17 +1,21 @@
 spring:
+  profiles:
+    active: dev
   jpa:
     hibernate:
       dll-auto: update
-  datasource:
-    url: jdbc:mysql://localhost:3306/mercadolivro?createDatabaseIfNotExist=true
-    username: root
-    password: abacate54
   jackson:
     default-property-inclusion: non_null
 
 jwt:
   secret:  abf9f11d-94c2-4b93-a8c4-870b883a666d
   expiration: 999999
+
+#active: dev
+#sempre ue possuir application-dev sera essa configuraçao junto com o application
+
+#posso detimar em edit vai abrir um pop up
+#dai em VM options: -Dspring.profiles.active=<ambiente>
 
 #  recomendado
 #  spring.jpa.hibernate.ddl-auto=update
