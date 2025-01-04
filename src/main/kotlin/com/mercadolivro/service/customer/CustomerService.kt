@@ -48,7 +48,7 @@ class CustomerService(
     fun updateUser(customer: CustomerModel) {
         customer.id?.let {
             if (!customerRepository.existsById(customer.id)) {
-                throw Exception()
+                throw  NotFoundException(message = Errors.ML201.message.format(customer.id), errorCode = Errors.ML201.code)
             }
             customerRepository.save(customer)
         }
@@ -57,7 +57,7 @@ class CustomerService(
 
     fun deleteUser(id: Int) {
         if (!customerRepository.existsById(id)) {
-            throw Exception()
+            throw throw  NotFoundException(message = Errors.ML201.message.format(id), errorCode = Errors.ML201.code)
         }
         val customer = getOnlyCustomerById(id)
         bookService.deleteBooksByCustomer(customer)

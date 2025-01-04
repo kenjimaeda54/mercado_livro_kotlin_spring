@@ -6,6 +6,9 @@ plugins {
 
 	//jpa
 	kotlin("plugin.jpa") version "1.4.21"
+
+	//jacoco
+	jacoco
 }
 
 group = "com.mercadolivro"
@@ -44,6 +47,10 @@ dependencies {
 
 	//jwt
 	implementation("io.jsonwebtoken:jjwt:0.12.6")
+
+	//test
+	testImplementation("io.mockk:mockk:1.13.14")
+
 
 	//vem com o inialiazer
 	implementation("org.springframework.boot:spring-boot-starter-web")
