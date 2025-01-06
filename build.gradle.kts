@@ -50,6 +50,7 @@ dependencies {
 
 	//test
 	testImplementation("io.mockk:mockk:1.13.14")
+	testImplementation("org.springframework.security:spring-security-test:6.4.2")
 
 
 	//vem com o inialiazer

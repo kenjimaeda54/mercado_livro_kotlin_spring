@@ -18,5 +18,5 @@ enum class Errors(val code: String,val message: String) {
     ML102(code = "ML-102", message = "Can't update book with status {%s}"),
 
     //customers
-    ML201(code = "ML-201", message = "Customer {%s} not exit")
+    ML201(code = "ML-201", message = "Customer {%s} not exist")
 }
