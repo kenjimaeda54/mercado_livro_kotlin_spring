@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/mercadolivrotest?createDatabaseIfNotExist=true
-    username: root
-    password: abacate54
+    url:
+    username:
+    password:
   jpa:
     hibernate:
       dll-auto: update

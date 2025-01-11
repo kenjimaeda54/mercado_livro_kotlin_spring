@@ -3,9 +3,9 @@ spring:
     hibernate:
       dll-auto: update
   datasource:
-    url: jdbc:mysql://localhost:3306/mercadolivroprod?createDatabaseIfNotExist=true
-    username: root
-    password: abacate54
+    url:
+    username:
+    password:
   jackson:
     default-property-inclusion: non_null
 
